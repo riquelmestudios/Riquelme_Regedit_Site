@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riquelme Regedits - Sensi & Regedits FF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #dc2626;
+            --dark-red: #991b1b;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(20, 20, 20, 0.95);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Partículas ULTRA Profissionais */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: radial-gradient(ellipse at top, #1a0505 0%, #0a0a0a 100%);
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(1px);
+        }
+
+        .particle-glow {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(var(--x-move)) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes particlePulse {
+            0%, 100% {
+                box-shadow: 0 0 10px var(--primary-red), 0 0 20px var(--primary-red);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--primary-red), 0 0 40px var(--primary-red), 0 0 60px var(--primary-red);
+            }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+            box-shadow: 0 5px 30px rgba(220, 38, 38, 0.1);
+        }
+
+        nav {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-container img {
+            height: 55px;
+            filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.6));
+            transition: all 0.3s;
+        }
+
+        .logo-container img:hover {
+            filter: drop-shadow(0 0 25px rgba(220, 38, 38, 0.9));
+            transform: scale(1.05);
+        }
+
+        .site-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #dc2626 0%, #ff4545 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary-red);
+            margin: 4px 0;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.7rem 1.3rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.3), transparent);
+            transition: all 0.5s;
+        }
+
+        .nav-links li a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links li a:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        .nav-links li a i {
+            font-size: 1.1rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 1rem;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 50px;
+            border: 2px solid var(--primary-red);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-profile:hover {
+            background: rgba(220, 38, 38, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--primary-red);
+        }
+
+        /* Banner de Anúncio ULTRA Profissional */
+        .ad-banner {
+            position: fixed;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-200px);
+            z-index: 999;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(220, 38, 38, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 400px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .ad-banner.active {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .ad-banner:hover {
+            transform: translateX(-50%) translateY(0) scale(1.02);
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.8);
+        }
+
+        .ad-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            100% { left: 100%; }
+        }
+
+        .ad-banner img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .ad-banner h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .ad-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            width: 0%;
+            animation: progressBar 8s linear;
+        }
+
+        @keyframes progressBar {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 140px 3rem 3rem;
+        }
+
+        section {
+            display: none;
+            animation: fadeInUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #dc2626 0%, #ff4545 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), var(--dark-red), var(--primary-red));
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(220, 38, 38, 0.3);
+            border-color: var(--primary-red);
+        }
+
+        .featured-card {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card::before {
+            content: '⭐';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 3rem;
+            opacity: 0.2;
+            animation: rotateStar 10s linear infinite;
+        }
+
+        @keyframes rotateStar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .featured-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(220, 38, 38, 0.6);
+        }
+
+        .featured-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .featured-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .featured-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.7rem;
+            color: var(--primary-red);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        label i {
+            font-size: 1.1rem;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+            background: rgba(30, 10, 10, 0.9);
+        }
+
+        select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: #fff;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(220, 38, 38, 0.5);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        button i {
+            font-size: 1.3rem;
+        }
+
+        .result {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid var(--primary-red);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2.5rem;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.1) 0%, transparent 70%);
+            animation: rotateGradient 10s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .result.active {
+            display: block;
+            animation: zoomIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result h2 {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sensi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sensi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            transition: all 0.3s;
+        }
+
+        .sensi-item:hover {
+            background: rgba(220, 38, 38, 0.2);
+            transform: translateX(5px);
+            border-color: var(--primary-red);
+        }
+
+        .sensi-item span:first-child {
+            color: var(--primary-red);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sensi-item span:last-child {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .info-box {
+            background: rgba(220, 38, 38, 0.05);
+            border-left: 5px solid var(--primary-red);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2.5rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-box h3 {
+            color: var(--primary-red);
+            margin-bottom: 1.2rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .info-box p, .info-box ul {
+            line-height: 1.9;
+            color: #ddd;
+            font-size: 1.05rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box ul li {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-box ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+
+        /* Discord Card Estilo YouTube */
+        .social-card {
+            background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 20px 60px rgba(88, 101, 242, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotateGradient 8s linear infinite;
+        }
+
+        .social-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(88, 101, 242, 0.6);
+        }
+
+        /* Thumbnail estilo YouTube */
+        .social-thumbnail {
+            position: relative;
+            width: 200px;
+            min-width: 200px;
+            height: 112px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .social-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .social-thumbnail::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .social-card-content {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .social-card h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-card p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.8rem;
+        }
+
+        .product-info h3 {
+            color: var(--primary-red);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #4ade80;
+            margin: 1rem 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: #888;
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            color: rgba(220, 38, 38, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(220, 38, 38, 0.2);
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        footer p {
+            color: #888;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 2px solid var(--primary-red);
+            border-radius: 25px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary-red);
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            background: rgba(220, 38, 38, 0.2);
+        }
+
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .container {
+                padding: 140px 2rem 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 85px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 85px);
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                border-left: 1px solid rgba(220, 38, 38, 0.2);
+                transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links li a {
+                width: 100%;
+                justify-content: flex-start;
+                padding: 1rem 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .featured-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .ad-banner {
+                min-width: 90%;
+            }
+
+            .sensi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .social-thumbnail {
+                width: 100%;
+                max-width: 400px;
+                height: 225px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-name {
+                font-size: 1.1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .featured-card img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas -->
+    <div id="particles-js"></div>
+
+    <!-- Banner de Anúncio -->
+    <div class="ad-banner" id="adBanner">
+        <img src="https://files.catbox.moe/w1a3pp.webp" alt="Regedits">
+        <div>
+            <h4><i class="fas fa-fire"></i> Compre suas Regedits Ant Ban Aqui!</h4>
+        </div>
+        <div class="ad-progress"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="https://files.catbox.moe/3ti677.png" alt="Logo">
+                <span class="site-name">RIQUELME REGEDITS</span>
+            </div>
+
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showSection('gerador')"><i class="fas fa-sliders-h"></i> Gerador De Sensi</a></li>
+                <li><a href="#" onclick="showSection('regedits')"><i class="fas fa-code"></i> Regedits</a></li>
+                <li id="loginBtn"><a href="#" onclick="showSection('login')"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><a href="#" onclick="showSection('parcerias')"><i class="fas fa-handshake"></i> Parcerias</a></li>
+                <li><a href="#" onclick="showSection('adicionar')"><i class="fas fa-plus-circle"></i> Adicionar Produto</a></li>
+                <li><a href="#" onclick="abrirSuporteWhatsApp()"><i class="fas fa-headset"></i> Suporte</a></li>
+            </ul>
+
+            <div class="user-profile" id="userProfile" style="display: none;">
+                <div class="user-avatar" id="userAvatar">R</div>
+                <span class="user-name" id="userName">Visitante</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Seção Gerador de Sensi -->
+        <section id="gerador" class="active">
+            <h1><i class="fas fa-crosshairs"></i> Gerador de Sensi</h1>
+
+            <a href="#geradorsensi" style="text-decoration: none;">
+                <div class="featured-card">
+                    <img src="https://files.catbox.moe/016qcd.webp" alt="Sensi Full Capa">
+                    <div>
+                        <h2><i class="fas fa-star"></i> Destaque Popular: Gerar Sensi Full Capa</h2>
+                        <p>Clique aqui para gerar sua sensibilidade perfeita e dominar o Free Fire!</p>
+                    </div>
+                </div>
+            </a>
+
+            <div class="info-box">
+                <h3><i class="fas fa-info-circle"></i> Importante:</h3>
+                <p>A escolha da melhor sensibilidade do Free Fire não é algo definitivo ou igual para todos os jogadores. Cada pessoa tem um estilo único, e por isso a sensibilidade ideal varia de acordo com vários fatores, como:</p>
+                <br>
+                <ul>
+                    <li>Modelo do seu dispositivo (quantidade de RAM, taxa de toque, processamento)</li>
+                    <li>Tipo de HUD que você usa</li>
+                    <li>Seu estilo de jogo (rush, meia distância ou suporte)</li>
+                    <li>Seu tempo de reação e controle do dedo</li>
+                    <li>A precisão que você quer alcançar, principalmente no So Capa</li>
+                </ul>
+                <br>
+                <p>Por isso, o app <strong>Riquelme Regedits</strong> recomenda que você teste diferentes perfis de sensibilidade, incluindo a famosa Sensibilidade So Capa, para descobrir qual delas se adapta melhor à sua jogabilidade. O objetivo é fazer com que você encontre uma sensibilidade perfeita para o seu toque, deixando sua mira mais leve, mais firme e mais precisa.</p>
+                <br>
+                <p>No <strong>Riquelme Regedits</strong>, você tem acesso a configurações otimizadas, ajustes inteligentes e recomendações baseadas no seu estilo de jogo, ajudando você a alcançar mais capas, mais estabilidade e muito mais desempenho dentro do Free Fire.</p>
+            </div>
+
+            <div class="card" id="geradorsensi">
+                <h2 style="color: var(--primary-red); margin-bottom: 2rem; font-size: 1.8rem;"><i class="fas fa-cog"></i> Gerar Sensibilidade Personalizada</h2>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-mobile-alt"></i> Selecione o Modelo do Seu Dispositivo:</label>
+                    <select id="deviceSelect">
+                        <option value="">Escolha seu dispositivo...</option>
+                        <option value="samsung">📱 Samsung</option>
+                        <option value="apple">🍎 Apple (iPhone/iPad)</option>
+                        <option value="motorola">📱 Motorola</option>
+                        <option value="emulador">💻 Emulador (PC)</option>
+                        <option value="xiaomi">📱 Xiaomi</option>
+                        <option value="lg">📱 LG</option>
+                    </select>
+                </div>
+
+                <button onclick="gerarSensi()"><i class="fas fa-magic"></i> Gerar Sensibilidade Apelonas</button>
+
+                <div class="result" id="sensiResult">
+                    <h2 style="color: var(--primary-red); margin-bottom: 2rem; text-align: center;"><i class="fas fa-check-circle"></i> Sua Sensibilidade Personalizada</h2>
+                    <div class="sensi-grid" id="sensiValues"></div>
+                    <button onclick="copiarSensi()" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); margin-top: 2rem;"><i class="fas fa-copy"></i> Copiar Valores</button>
+                </div>
+            </div>
+
+            <!-- Discord Card Estilo YouTube -->
+            <div class="social-card" onclick="window.open('https://discord.gg/5YMc9wBJD', '_blank')">
+                <div class="social-thumbnail">
+                    <img src="https://files.catbox.moe/9ru7yl.png" alt="Discord">
+                </div>
+                <div class="social-card-content">
+                    <h2><i class="fab fa-discord"></i> Entre Na Comunidade Do Discord</h2>
+                    <p>Junte-se a nossa comunidade e fique por dentro das novidades!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Regedits -->
+        <section id="regedits">
+            <h1><i class="fas fa-code"></i> Regedits Ant Ban</h1>
+            
+            <div class="card">
+                <div class="empty-state">
+                    <i class="fas fa-box-open"></i>
+                    <h2>Nenhum Produto Disponível</h2>
+                    <p>Ainda não há regedits cadastrados. Em breve teremos novidades incríveis!</p>
+                </div>
+            </div>
+
+            <div class="social-card" onclick="window.open('https://discord.gg/5YMc9wBJD', '_blank')">
+                <div class="social-thumbnail">
+                    <img src="https://files.catbox.moe/9ru7yl.png" alt="Discord">
+                </div>
+                <div class="social-card-content">
+                    <h2><i class="fab fa-discord"></i> Entre Na Comunidade Do Discord</h2>
+                    <p>Junte-se a nossa comunidade e fique por dentro das novidades!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Login -->
+        <section id="login">
+            <h1><i class="fas fa-user-circle"></i> Login</h1>
+            
+            <div class="card">
+                <h2 style="color: var(--primary-red); margin-bottom: 2rem;"><i class="fas fa-sign-in-alt"></i> Acesse sua conta</h2>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username:</label>
+                    <input type="text" id="loginUsername" placeholder="Digite seu username">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha:</label>
+                    <input type="password" id="loginSenha" placeholder="••••••••">
+                </div>
+
+                <button onclick="fazerLogin()"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+            </div>
+        </section>
+
+        <!-- Seção Parcerias -->
+        <section id="parcerias">
+            <h1><i class="fas fa-handshake"></i> Parcerias</h1>
+            
+            <div class="card">
+                <h2 style="color: var(--primary-red); margin-bottom: 2rem;"><i class="fas fa-briefcase"></i> Fechar Parceria</h2>
+                <p style="margin-bottom: 2rem; color: #ddd; font-size: 1.05rem;">Preencha os campos abaixo para enviar sua proposta de parceria:</p>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Seu Nome:</label>
+                    <input type="text" id="parceriaNome" placeholder="Digite seu nome completo">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-comment-dots"></i> Motivos da Parceria:</label>
+                    <textarea id="parceriaMotivos" rows="8" placeholder="Descreva os motivos e benefícios da parceria..."></textarea>
+                </div>
+
+                <button onclick="enviarParceria()"><i class="fab fa-whatsapp"></i> Enviar Proposta via WhatsApp</button>
+            </div>
+        </section>
+
+        <!-- Seção Adicionar Produto -->
+        <section id="adicionar">
+            <h1><i class="fas fa-plus-circle"></i> Adicionar Produto</h1>
+            
+            <div class="card">
+                <div class="info-box" style="background: rgba(220, 38, 38, 0.15); border-left-color: #fbbf24;">
+                    <h3><i class="fas fa-dollar-sign"></i> Taxa de Publicação: R$ 2,00</h3>
+                    <p>Para publicar seu produto na loja, é necessário pagar uma taxa de R$ 2,00. Após a confirmação do pagamento, seu produto será publicado em até 24 horas!</p>
+                </div>
+
+                <h2 style="color: var(--primary-red); margin-bottom: 2rem;"><i class="fas fa-edit"></i> Preencha os dados do produto</h2>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user-tag"></i> Nome do Titular:</label>
+                    <input type="text" id="produtoTitular" placeholder="Seu nome completo">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> Link da Imagem:</label>
+                    <input type="url" id="produtoImagem" placeholder="https://exemplo.com/imagem.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Preço:</label>
+                    <input type="text" id="produtoPreco" placeholder="R$ 00,00">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Contato de Venda:</label>
+                    <input type="text" id="produtoContato" placeholder="(00) 00000-0000">
+                </div>
+
+                <button onclick="adicionarProduto()"><i class="fas fa-check-circle"></i> Publicar Produto (R$ 2,00)</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><i class="fas fa-copyright"></i> COPYRIGHT RIQUELME DESIGNER</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></span>
+            <h2 style="color: var(--primary-red); margin-bottom: 1.5rem; text-align: center;"><i class="fas fa-lock"></i> Login Necessário</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">Você precisa fazer login para acessar esta funcionalidade.</p>
+            <button onclick="irParaLogin()"><i class="fas fa-sign-in-alt"></i> Ir para Login</button>
+        </div>
+    </div>
+
+    <script>
+        // Criar Partículas ULTRA Profissionais
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles-js');
+            const particleCount = 150;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                const isGlow = Math.random() > 0.7;
+                
+                particle.className = isGlow ? 'particle-glow' : 'particle';
+                
+                const size = isGlow ? Math.random() * 40 + 20 : Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                
+                const opacity = Math.random() * 0.6 + 0.2;
+                particle.style.background = `rgba(220, 38, 38, ${opacity})`;
+                
+                const delay = Math.random() * 30;
+                const duration = Math.random() * 25 + 20;
+                const xMove = (Math.random() - 0.5) * 200;
+                
+                particle.style.setProperty('--x-move', xMove + 'px');
+                particle.style.animation = `particleFloat ${duration}s linear ${delay}s infinite`;
+                
+                if (!isGlow) {
+                    particle.style.animation += `, particlePulse ${Math.random() * 3 + 2}s ease-in-out infinite`;
+                }
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Sistema de Anúncios com Redirecionamento
+        let currentAdSection = 'regedits';
+        
+        function showAd() {
+            const adBanner = document.getElementById('adBanner');
+            adBanner.classList.add('active');
+            adBanner.onclick = function() {
+                showSection(currentAdSection);
+                adBanner.classList.remove('active');
+            };
+            
+            setTimeout(() => {
+                adBanner.classList.remove('active');
+            }, 8000);
+        }
+
+        setInterval(showAd, 30000);
+        setTimeout(showAd, 5000);
+
+        // Toggle Menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.menu-toggle');
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        // Navegação
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            if (window.innerWidth <= 1024) {
+                const navLinks = document.getElementById('navLinks');
+                const menuToggle = document.querySelector('.menu-toggle');
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Suporte WhatsApp
+        function abrirSuporteWhatsApp() {
+            const mensagem = `🆘 *SUPORTE - RIQUELME REGEDITS*
+
+Olá! Preciso de ajuda com:
+
+[Descreva seu problema aqui]
+
+---
+_Enviado via Riquelme Regedits_`;
+            
+            const mensagemEncoded = encodeURIComponent(mensagem);
+            const whatsappURL = `https://wa.me/5574999620423?text=${mensagemEncoded}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Banco de Sensibilidades
+        const sensiDatabase = {
+            samsung: [],
+            apple: [],
+            motorola: [],
+            emulador: [],
+            xiaomi: [],
+            lg: []
+        };
+
+        function generateSensiDatabase() {
+            const baseConfigs = {
+                samsung: { geral: [118, 140], pontoVermelho: [82, 102], mira2x: [85, 100], mira4x: [88, 106], miraAWM: [8, 18], olhadinha: [92, 112], dpi: [395, 445] },
+                apple: { geral: [105, 128], pontoVermelho: [72, 92], mira2x: [75, 95], mira4x: [80, 98], miraAWM: [5, 14], olhadinha: [85, 102], dpi: [365, 410] },
+                motorola: { geral: [132, 155], pontoVermelho: [92, 112], mira2x: [90, 108], mira4x: [95, 115], miraAWM: [12, 20], olhadinha: [100, 120], dpi: [415, 460] },
+                emulador: { geral: [95, 118], pontoVermelho: [65, 85], mira2x: [68, 88], mira4x: [72, 92], miraAWM: [3, 10], olhadinha: [78, 95], dpi: [330, 380] },
+                xiaomi: { geral: [125, 148], pontoVermelho: [85, 105], mira2x: [88, 105], mira4x: [92, 110], miraAWM: [10, 18], olhadinha: [95, 115], dpi: [400, 445] },
+                lg: { geral: [115, 138], pontoVermelho: [78, 98], mira2x: [82, 100], mira4x: [86, 105], miraAWM: [7, 15], olhadinha: [88, 108], dpi: [385, 430] }
+            };
+
+            Object.keys(baseConfigs).forEach(device => {
+                const config = baseConfigs[device];
+                for (let i = 0; i < 100; i++) {
+                    sensiDatabase[device].push({
+                        geral: Math.floor(Math.random() * (config.geral[1] - config.geral[0] + 1)) + config.geral[0],
+                        pontoVermelho: Math.floor(Math.random() * (config.pontoVermelho[1] - config.pontoVermelho[0] + 1)) + config.pontoVermelho[0],
+                        mira2x: Math.floor(Math.random() * (config.mira2x[1] - config.mira2x[0] + 1)) + config.mira2x[0],
+                        mira4x: Math.floor(Math.random() * (config.mira4x[1] - config.mira4x[0] + 1)) + config.mira4x[0],
+                        miraAWM: Math.floor(Math.random() * (config.miraAWM[1] - config.miraAWM[0] + 1)) + config.miraAWM[0],
+                        olhadinha: Math.floor(Math.random() * (config.olhadinha[1] - config.olhadinha[0] + 1)) + config.olhadinha[0],
+                        dpi: Math.floor(Math.random() * (config.dpi[1] - config.dpi[0] + 1)) + config.dpi[0]
+                    });
+                }
+            });
+        }
+        generateSensiDatabase();
+
+        const usedSensis = {
+            samsung: [],
+            apple: [],
+            motorola: [],
+            emulador: [],
+            xiaomi: [],
+            lg: []
+        };
+
+        function gerarSensi() {
+            const device = document.getElementById('deviceSelect').value;
+            
+            if (!device) {
+                alert('⚠️ Por favor, selecione um dispositivo!');
+                return;
+            }
+
+            if (usedSensis[device].length >= sensiDatabase[device].length) {
+                if (confirm('❌ Todas as sensibilidades para este dispositivo já foram geradas!\n\n✅ Deseja resetar e gerar novas?')) {
+                    usedSensis[device] = [];
+                } else {
+                    return;
+                }
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * sensiDatabase[device].length);
+            } while (usedSensis[device].includes(randomIndex));
+
+            usedSensis[device].push(randomIndex);
+            const sensi = sensiDatabase[device][randomIndex];
+
+            const valuesHTML = `
+                <div class="sensi-item"><span><i class="fas fa-cog"></i> Geral:</span><span>${sensi.geral}</span></div>
+                <div class="sensi-item"><span><i class="fas fa-dot-circle"></i> Ponto Vermelho:</span><span>${sensi.pontoVermelho}</span></div>
+                <div class="sensi-item"><span><i class="fas fa-search"></i> Mira 2x:</span><span>${sensi.mira2x}</span></div>
+                <div class="sensi-item"><span><i class="fas fa-search-plus"></i> Mira 4x:</span><span>${sensi.mira4x}</span></div>
+                <div class="sensi-item"><span><i class="fas fa-crosshairs"></i> Mira AWM:</span><span>${sensi.miraAWM}</span></div>
+                <div class="sensi-item"><span><i class="fas fa-eye"></i> Olhadinha:</span><span>${sensi.olhadinha}</span></div>
+                <div class="sensi-item"><span><i class="fas fa-mouse"></i> DPI:</span><span>${sensi.dpi}</span></div>
+            `;
+
+            document.getElementById('sensiValues').innerHTML = valuesHTML;
+            document.getElementById('sensiResult').classList.add('active');
+            
+            window.currentSensi = sensi;
+            window.currentDevice = device;
+
+            const remaining = sensiDatabase[device].length - usedSensis[device].length;
+            console.log(`✅ Sensi gerada! Restam ${remaining} sensis únicas para ${device}`);
+        }
+
+        function copiarSensi() {
+            if (!window.currentSensi) return;
+            
+            const deviceNames = {
+                samsung: 'Samsung',
+                apple: 'Apple (iPhone/iPad)',
+                motorola: 'Motorola',
+                emulador: 'Emulador (PC)',
+                xiaomi: 'Xiaomi',
+                lg: 'LG'
+            };
+
+            const texto = `
+🎯 SENSIBILIDADE RIQUELME REGEDITS
+
+📱 Dispositivo: ${deviceNames[window.currentDevice]}
+
+⚙️ Geral: ${window.currentSensi.geral}
+🔴 Ponto Vermelho: ${window.currentSensi.pontoVermelho}
+🔍 Mira 2x: ${window.currentSensi.mira2x}
+🔎 Mira 4x: ${window.currentSensi.mira4x}
+🎯 Mira AWM: ${window.currentSensi.miraAWM}
+👁️ Olhadinha: ${window.currentSensi.olhadinha}
+🖱️ DPI: ${window.currentSensi.dpi}
+
+✨ Gerado em: Riquelme Regedits
+            `.trim();
+
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✅ Sensibilidade copiada para a área de transferência!');
+            }).catch(() => {
+                alert('❌ Erro ao copiar. Tente novamente!');
+            });
+        }
+
+        // Sistema de Login
+        let isLoggedIn = false;
+        let currentUser = null;
+
+        function fazerLogin() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const senha = document.getElementById('loginSenha').value;
+
+            if (!username || !senha) {
+                alert('❌ Por favor, preencha todos os campos!');
+                return;
+            }
+
+            if (username.length < 3) {
+                alert('❌ Username deve ter pelo menos 3 caracteres!');
+                return;
+            }
+
+            if (senha.length < 6) {
+                alert('❌ Senha deve ter pelo menos 6 caracteres!');
+                return;
+            }
+
+            isLoggedIn = true;
+            currentUser = {
+                username: username
+            };
+
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('userProfile').style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+
+            alert(`✅ Login realizado com sucesso!\n\nBem-vindo(a), ${username}!`);
+            
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginSenha').value = '';
+
+            showSection('gerador');
+        }
+
+        function enviarParceria() {
+            const nome = document.getElementById('parceriaNome').value.trim();
+            const motivos = document.getElementById('parceriaMotivos').value.trim();
+
+            if (!nome || !motivos) {
+                alert('❌ Por favor, preencha todos os campos!');
+                return;
+            }
+
+            if (motivos.length < 50) {
+                alert('⚠️ Por favor, descreva melhor os motivos da parceria (mínimo 50 caracteres).');
+                return;
+            }
+
+            const mensagem = `🤝 *PROPOSTA DE PARCERIA - RIQUELME REGEDITS*
+
+👤 *Nome:* ${nome}
+
+📋 *Motivos da Parceria:*
+${motivos}
+
+---
+_Enviado via Riquelme Regedits_`;
+
+            const mensagemEncoded = encodeURIComponent(mensagem);
+            const whatsappURL = `https://wa.me/5574999620423?text=${mensagemEncoded}`;
+            
+            window.open(whatsappURL, '_blank');
+
+            document.getElementById('parceriaNome').value = '';
+            document.getElementById('parceriaMotivos').value = '';
+        }
+
+        function adicionarProduto() {
+            if (!isLoggedIn) {
+                document.getElementById('loginModal').classList.add('active');
+                return;
+            }
+
+            const titular = document.getElementById('produtoTitular').value.trim();
+            const imagem = document.getElementById('produtoImagem').value.trim();
+            const preco = document.getElementById('produtoPreco').value.trim();
+            const contato = document.getElementById('produtoContato').value.trim();
+
+            if (!titular || !imagem || !preco || !contato) {
+                alert('❌ Por favor, preencha todos os campos!');
+                return;
+            }
+
+            try {
+                new URL(imagem);
+            } catch {
+                alert('❌ URL da imagem inválida! Por favor, insira um link válido.');
+                return;
+            }
+
+            alert(`💰 TAXA DE PUBLICAÇÃO: R$ 2,00
+
+✅ Para finalizar a publicação, você será redirecionado para o pagamento.
+
+📦 Dados do Produto:
+• Titular: ${titular}
+• Preço: ${preco}
+• Contato: ${contato}
+
+⏱️ Seu produto será publicado em até 24 horas após a confirmação do pagamento!`);
+            
+            document.getElementById('produtoTitular').value = '';
+            document.getElementById('produtoImagem').value = '';
+            document.getElementById('produtoPreco').value = '';
+            document.getElementById('produtoContato').value = '';
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        function irParaLogin() {
+            closeModal();
+            showSection('login');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(event.target) && 
+                !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
