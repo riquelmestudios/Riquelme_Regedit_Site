@@ -549,6 +549,11 @@
             font-size: 1.3rem;
         }
 
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .result {
             background: rgba(20, 20, 20, 0.95);
             border: 2px solid var(--primary-red);
@@ -710,6 +715,15 @@
         .social-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 30px 80px rgba(88, 101, 242, 0.6);
+        }
+
+        .social-card.whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.4);
+        }
+
+        .social-card.whatsapp:hover {
+            box-shadow: 0 30px 80px rgba(37, 211, 102, 0.6);
         }
 
         /* Thumbnail estilo YouTube */
@@ -1001,6 +1015,43 @@
     <!-- Partículas -->
     <div id="particles-js"></div>
 
+    <!-- Modal de Compartilhamento Obrigatório -->
+    <div class="modal active" id="shareModal" style="background: rgba(0, 0, 0, 0.98);">
+        <div class="modal-content" style="max-width: 600px;">
+            <h2 style="color: var(--primary-red); margin-bottom: 1.5rem; text-align: center;"><i class="fas fa-share-alt"></i> Compartilhe para Desbloquear</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem; color: #ddd;">Para acessar o app, você precisa compartilhar em <strong style="color: var(--primary-red);">5 grupos do WhatsApp</strong></p>
+            
+            <div style="background: rgba(220, 38, 38, 0.1); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(220, 38, 38, 0.3);">
+                <h3 style="color: var(--primary-red); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-info-circle"></i> Como funciona:
+                </h3>
+                <ol style="color: #ddd; line-height: 2; padding-left: 1.5rem;">
+                    <li>Clique no botão "Compartilhar no WhatsApp"</li>
+                    <li>Envie a mensagem em 5 grupos diferentes</li>
+                    <li>Aguarde 3 segundos entre cada compartilhamento</li>
+                    <li>Após compartilhar nos 5 grupos, o app será desbloqueado!</li>
+                </ol>
+            </div>
+
+            <div style="background: rgba(34, 197, 94, 0.1); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(34, 197, 94, 0.3); text-align: center;">
+                <div style="font-size: 3rem; color: #22c55e; margin-bottom: 0.5rem;" id="shareProgress">0/5</div>
+                <div style="color: #22c55e; font-weight: 600; font-size: 1.1rem;">Grupos Compartilhados</div>
+            </div>
+
+            <button onclick="abrirWhatsAppCompartilhar()" id="shareBtn" style="background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);">
+                <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
+            </button>
+
+            <div id="waitingMessage" style="display: none; text-align: center; margin-top: 1.5rem; color: #fbbf24; font-weight: 600;">
+                <i class="fas fa-clock"></i> Aguarde <span id="countdown">3</span> segundos para compartilhar novamente...
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #888;">
+                <i class="fas fa-lock"></i> O app só será desbloqueado após compartilhar nos 5 grupos
+            </p>
+        </div>
+    </div>
+
     <!-- Banner de Anúncio -->
     <div class="ad-banner" id="adBanner">
         <img src="https://files.catbox.moe/w1a3pp.webp" alt="Regedits">
@@ -1098,7 +1149,7 @@
                 </div>
             </div>
 
-            <!-- Discord Card Estilo YouTube -->
+            <!-- Discord Card -->
             <div class="social-card" onclick="window.open('https://discord.gg/5YMc9wBJD', '_blank')">
                 <div class="social-thumbnail">
                     <img src="https://files.catbox.moe/9ru7yl.png" alt="Discord">
@@ -1106,6 +1157,17 @@
                 <div class="social-card-content">
                     <h2><i class="fab fa-discord"></i> Entre Na Comunidade Do Discord</h2>
                     <p>Junte-se a nossa comunidade e fique por dentro das novidades!</p>
+                </div>
+            </div>
+
+            <!-- WhatsApp Card -->
+            <div class="social-card whatsapp" onclick="window.open('https://chat.whatsapp.com/HzC1dXVQD5LA7uur7IIuHM', '_blank')">
+                <div class="social-thumbnail">
+                    <img src="https://files.catbox.moe/9ru7yl.png" alt="WhatsApp">
+                </div>
+                <div class="social-card-content">
+                    <h2><i class="fab fa-whatsapp"></i> Entre no Grupo do WhatsApp</h2>
+                    <p>Participe do nosso grupo exclusivo e receba as últimas atualizações!</p>
                 </div>
             </div>
         </section>
@@ -1122,6 +1184,7 @@
                 </div>
             </div>
 
+            <!-- Discord Card -->
             <div class="social-card" onclick="window.open('https://discord.gg/5YMc9wBJD', '_blank')">
                 <div class="social-thumbnail">
                     <img src="https://files.catbox.moe/9ru7yl.png" alt="Discord">
@@ -1129,6 +1192,17 @@
                 <div class="social-card-content">
                     <h2><i class="fab fa-discord"></i> Entre Na Comunidade Do Discord</h2>
                     <p>Junte-se a nossa comunidade e fique por dentro das novidades!</p>
+                </div>
+            </div>
+
+            <!-- WhatsApp Card -->
+            <div class="social-card whatsapp" onclick="window.open('https://chat.whatsapp.com/HzC1dXVQD5LA7uur7IIuHM', '_blank')">
+                <div class="social-thumbnail">
+                    <img src="https://files.catbox.moe/9ru7yl.png" alt="WhatsApp">
+                </div>
+                <div class="social-card-content">
+                    <h2><i class="fab fa-whatsapp"></i> Entre no Grupo do WhatsApp</h2>
+                    <p>Participe do nosso grupo exclusivo e receba as últimas atualizações!</p>
                 </div>
             </div>
         </section>
@@ -1218,7 +1292,7 @@
         <p><i class="fas fa-copyright"></i> COPYRIGHT RIQUELME DESIGNER</p>
     </footer>
 
-    <!-- Modal -->
+    <!-- Modal Login -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></span>
@@ -1229,6 +1303,84 @@
     </div>
 
     <script>
+        // Sistema de Compartilhamento Obrigatório
+        let sharesCount = 0;
+        const requiredShares = 5;
+        let canShare = true;
+        const shareLink = "[SEU LINK AQUI]"; // Substitua pelo link real do download
+        
+        function abrirWhatsAppCompartilhar() {
+            if (!canShare) {
+                alert('⚠️ Aguarde o tempo de espera antes de compartilhar novamente!');
+                return;
+            }
+
+            const mensagem = `🔥 *RIQUELME REGEDITS - SENSI & REGEDITS FF*
+
+✨ Acabei de descobrir o melhor app de Free Fire!
+
+🎯 *Recursos:*
+• Gerador de Sensibilidade Personalizada
+• Regedits Ant Ban
+• Configurações para todos os dispositivos
+• Totalmente GRÁTIS!
+
+📥 *Baixe agora:*
+${shareLink}
+
+🎁 *Entre na comunidade:*
+Discord: https://discord.gg/5YMc9wBJD
+WhatsApp: https://chat.whatsapp.com/HzC1dXVQD5LA7uur7IIuHM
+
+---
+_Compartilhe com seus amigos!_`;
+
+            const mensagemEncoded = encodeURIComponent(mensagem);
+            const whatsappURL = `https://wa.me/?text=${mensagemEncoded}`;
+            
+            window.open(whatsappURL, '_blank');
+
+            sharesCount++;
+            document.getElementById('shareProgress').textContent = `${sharesCount}/${requiredShares}`;
+
+            if (sharesCount >= requiredShares) {
+                localStorage.setItem('riquelmeAppUnlocked', 'true');
+                setTimeout(() => {
+                    document.getElementById('shareModal').classList.remove('active');
+                    alert('🎉 Parabéns! App desbloqueado com sucesso!\n\n✅ Agora você tem acesso completo a todos os recursos!');
+                    showAd();
+                }, 1000);
+            } else {
+                canShare = false;
+                document.getElementById('shareBtn').disabled = true;
+                document.getElementById('shareBtn').style.opacity = '0.5';
+                document.getElementById('waitingMessage').style.display = 'block';
+                
+                let countdown = 3;
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    document.getElementById('countdown').textContent = countdown;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        canShare = true;
+                        document.getElementById('shareBtn').disabled = false;
+                        document.getElementById('shareBtn').style.opacity = '1';
+                        document.getElementById('waitingMessage').style.display = 'none';
+                        document.getElementById('countdown').textContent = '3';
+                    }
+                }, 1000);
+            }
+        }
+
+        // Verificar se já compartilhou (sistema anti-reload)
+        window.addEventListener('load', function() {
+            const hasShared = localStorage.getItem('riquelmeAppUnlocked');
+            if (hasShared === 'true') {
+                document.getElementById('shareModal').classList.remove('active');
+            }
+        });
+
         // Criar Partículas ULTRA Profissionais
         function createParticles() {
             const particlesContainer = document.getElementById('particles-js');
@@ -1281,7 +1433,6 @@
         }
 
         setInterval(showAd, 30000);
-        setTimeout(showAd, 5000);
 
         // Toggle Menu
         function toggleMenu() {
