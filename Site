@@ -27,7 +27,6 @@
             line-height: 1.6;
         }
 
-        /* Partículas ULTRA Profissionais */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -80,7 +79,6 @@
             }
         }
 
-        /* Header */
         header {
             position: fixed;
             width: 100%;
@@ -237,7 +235,7 @@
             color: var(--primary-red);
         }
 
-        /* Banner de Anúncio ULTRA Profissional */
+        /* Banner de Anúncio a cada 60 segundos */
         .ad-banner {
             position: fixed;
             top: 85px;
@@ -310,7 +308,6 @@
             to { width: 100%; }
         }
 
-        /* Container */
         .container {
             position: relative;
             z-index: 1;
@@ -456,6 +453,72 @@
             opacity: 0.9;
         }
 
+        /* Plano Premium */
+        .premium-banner {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(251, 191, 36, 0.4);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .premium-banner::before {
+            content: '👑';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: rotateStar 10s linear infinite;
+        }
+
+        .premium-banner:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(251, 191, 36, 0.6);
+        }
+
+        .premium-banner h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #0a0a0a;
+            margin-bottom: 1rem;
+        }
+
+        .premium-banner p {
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .premium-price {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #dc2626;
+            margin: 1rem 0;
+        }
+
+        .premium-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .premium-benefit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0a0a0a;
+        }
+
         .form-group {
             margin-bottom: 1.8rem;
         }
@@ -547,11 +610,6 @@
 
         button i {
             font-size: 1.3rem;
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         .result {
@@ -685,7 +743,6 @@
             font-weight: bold;
         }
 
-        /* Discord Card Estilo YouTube */
         .social-card {
             background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
             padding: 2rem;
@@ -699,6 +756,15 @@
             display: flex;
             gap: 2rem;
             align-items: center;
+        }
+
+        .social-card.whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.4);
+        }
+
+        .social-card.whatsapp:hover {
+            box-shadow: 0 30px 80px rgba(37, 211, 102, 0.6);
         }
 
         .social-card::before {
@@ -717,16 +783,6 @@
             box-shadow: 0 30px 80px rgba(88, 101, 242, 0.6);
         }
 
-        .social-card.whatsapp {
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.4);
-        }
-
-        .social-card.whatsapp:hover {
-            box-shadow: 0 30px 80px rgba(37, 211, 102, 0.6);
-        }
-
-        /* Thumbnail estilo YouTube */
         .social-thumbnail {
             position: relative;
             width: 200px;
@@ -989,6 +1045,11 @@
                 max-width: 400px;
                 height: 225px;
             }
+
+            .premium-benefits {
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1008,49 +1069,16 @@
                 width: 100px;
                 height: 100px;
             }
+
+            .premium-price {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Partículas -->
     <div id="particles-js"></div>
-
-    <!-- Modal de Compartilhamento Obrigatório -->
-    <div class="modal active" id="shareModal" style="background: rgba(0, 0, 0, 0.98);">
-        <div class="modal-content" style="max-width: 600px;">
-            <h2 style="color: var(--primary-red); margin-bottom: 1.5rem; text-align: center;"><i class="fas fa-share-alt"></i> Compartilhe para Desbloquear</h2>
-            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem; color: #ddd;">Para acessar o app, você precisa compartilhar em <strong style="color: var(--primary-red);">5 grupos do WhatsApp</strong></p>
-            
-            <div style="background: rgba(220, 38, 38, 0.1); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(220, 38, 38, 0.3);">
-                <h3 style="color: var(--primary-red); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="fas fa-info-circle"></i> Como funciona:
-                </h3>
-                <ol style="color: #ddd; line-height: 2; padding-left: 1.5rem;">
-                    <li>Clique no botão "Compartilhar no WhatsApp"</li>
-                    <li>Envie a mensagem em 5 grupos diferentes</li>
-                    <li>Aguarde 3 segundos entre cada compartilhamento</li>
-                    <li>Após compartilhar nos 5 grupos, o app será desbloqueado!</li>
-                </ol>
-            </div>
-
-            <div style="background: rgba(34, 197, 94, 0.1); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(34, 197, 94, 0.3); text-align: center;">
-                <div style="font-size: 3rem; color: #22c55e; margin-bottom: 0.5rem;" id="shareProgress">0/5</div>
-                <div style="color: #22c55e; font-weight: 600; font-size: 1.1rem;">Grupos Compartilhados</div>
-            </div>
-
-            <button onclick="abrirWhatsAppCompartilhar()" id="shareBtn" style="background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);">
-                <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
-            </button>
-
-            <div id="waitingMessage" style="display: none; text-align: center; margin-top: 1.5rem; color: #fbbf24; font-weight: 600;">
-                <i class="fas fa-clock"></i> Aguarde <span id="countdown">3</span> segundos para compartilhar novamente...
-            </div>
-
-            <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #888;">
-                <i class="fas fa-lock"></i> O app só será desbloqueado após compartilhar nos 5 grupos
-            </p>
-        </div>
-    </div>
 
     <!-- Banner de Anúncio -->
     <div class="ad-banner" id="adBanner">
@@ -1078,6 +1106,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#" onclick="showSection('gerador')"><i class="fas fa-sliders-h"></i> Gerador De Sensi</a></li>
                 <li><a href="#" onclick="showSection('regedits')"><i class="fas fa-code"></i> Regedits</a></li>
+                <li><a href="#" onclick="showSection('premium')"><i class="fas fa-crown"></i> Premium</a></li>
                 <li id="loginBtn"><a href="#" onclick="showSection('login')"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                 <li><a href="#" onclick="showSection('parcerias')"><i class="fas fa-handshake"></i> Parcerias</a></li>
                 <li><a href="#" onclick="showSection('adicionar')"><i class="fas fa-plus-circle"></i> Adicionar Produto</a></li>
@@ -1096,6 +1125,24 @@
         <!-- Seção Gerador de Sensi -->
         <section id="gerador" class="active">
             <h1><i class="fas fa-crosshairs"></i> Gerador de Sensi</h1>
+
+            <!-- Banner Premium -->
+            <div class="premium-banner" onclick="showSection('premium')">
+                <h2><i class="fas fa-crown"></i> SEJA PREMIUM!</h2>
+                <p>Remova todos os anúncios e tenha acesso ilimitado</p>
+                <div class="premium-price">R$ 2,00</div>
+                <div class="premium-benefits">
+                    <div class="premium-benefit">
+                        <i class="fas fa-check-circle"></i> Sem Anúncios
+                    </div>
+                    <div class="premium-benefit">
+                        <i class="fas fa-check-circle"></i> Sensis Ilimitadas
+                    </div>
+                    <div class="premium-benefit">
+                        <i class="fas fa-check-circle"></i> Suporte Prioritário
+                    </div>
+                </div>
+            </div>
 
             <a href="#geradorsensi" style="text-decoration: none;">
                 <div class="featured-card">
@@ -1163,11 +1210,11 @@
             <!-- WhatsApp Card -->
             <div class="social-card whatsapp" onclick="window.open('https://chat.whatsapp.com/HzC1dXVQD5LA7uur7IIuHM', '_blank')">
                 <div class="social-thumbnail">
-                    <img src="https://files.catbox.moe/9ru7yl.png" alt="WhatsApp">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
                 </div>
                 <div class="social-card-content">
-                    <h2><i class="fab fa-whatsapp"></i> Entre no Grupo do WhatsApp</h2>
-                    <p>Participe do nosso grupo exclusivo e receba as últimas atualizações!</p>
+                    <h2><i class="fab fa-whatsapp"></i> Entre No Grupo Do WhatsApp</h2>
+                    <p>Faça parte do nosso grupo e receba atualizações exclusivas!</p>
                 </div>
             </div>
         </section>
@@ -1184,7 +1231,6 @@
                 </div>
             </div>
 
-            <!-- Discord Card -->
             <div class="social-card" onclick="window.open('https://discord.gg/5YMc9wBJD', '_blank')">
                 <div class="social-thumbnail">
                     <img src="https://files.catbox.moe/9ru7yl.png" alt="Discord">
@@ -1195,14 +1241,80 @@
                 </div>
             </div>
 
-            <!-- WhatsApp Card -->
             <div class="social-card whatsapp" onclick="window.open('https://chat.whatsapp.com/HzC1dXVQD5LA7uur7IIuHM', '_blank')">
                 <div class="social-thumbnail">
-                    <img src="https://files.catbox.moe/9ru7yl.png" alt="WhatsApp">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
                 </div>
                 <div class="social-card-content">
-                    <h2><i class="fab fa-whatsapp"></i> Entre no Grupo do WhatsApp</h2>
-                    <p>Participe do nosso grupo exclusivo e receba as últimas atualizações!</p>
+                    <h2><i class="fab fa-whatsapp"></i> Entre No Grupo Do WhatsApp</h2>
+                    <p>Faça parte do nosso grupo e receba atualizações exclusivas!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Premium -->
+        <section id="premium">
+            <h1><i class="fas fa-crown"></i> Seja Premium</h1>
+            
+            <div class="card">
+                <div style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-crown" style="font-size: 5rem; color: #fbbf24; margin-bottom: 2rem;"></i>
+                    
+                    <h2 style="color: #fbbf24; font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem;">
+                        PLANO PREMIUM
+                    </h2>
+                    
+                    <p style="font-size: 1.2rem; color: #ddd; margin-bottom: 2rem;">
+                        Tenha acesso completo ao Riquelme Regedits sem anúncios e com benefícios exclusivos!
+                    </p>
+
+                    <div class="premium-price" style="color: #22c55e;">
+                        R$ 2,00
+                    </div>
+
+                    <div style="background: rgba(251, 191, 36, 0.1); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                        <h3 style="color: #fbbf24; margin-bottom: 1.5rem; font-size: 1.5rem;">
+                            <i class="fas fa-star"></i> Benefícios Premium
+                        </h3>
+                        
+                        <div style="text-align: left; max-width: 400px; margin: 0 auto;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0; font-size: 1.1rem;">
+                                <i class="fas fa-check-circle" style="color: #22c55e; font-size: 1.5rem;"></i>
+                                <span><strong>Sem Anúncios:</strong> Navegue sem interrupções</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0; font-size: 1.1rem;">
+                                <i class="fas fa-check-circle" style="color: #22c55e; font-size: 1.5rem;"></i>
+                                <span><strong>Sensis Ilimitadas:</strong> Gere quantas quiser</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0; font-size: 1.1rem;">
+                                <i class="fas fa-check-circle" style="color: #22c55e; font-size: 1.5rem;"></i>
+                                <span><strong>Suporte Prioritário:</strong> Atendimento VIP</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0; font-size: 1.1rem;">
+                                <i class="fas fa-check-circle" style="color: #22c55e; font-size: 1.5rem;"></i>
+                                <span><strong>Atualizações Exclusivas:</strong> Acesso antecipado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="background: rgba(34, 197, 94, 0.1); border-left-color: #22c55e;">
+                        <h3 style="color: #22c55e;"><i class="fas fa-money-bill-wave"></i> Como Pagar</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                            Faça o pagamento de <strong>R$ 2,00</strong> via PIX para o número:
+                        </p>
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+                            <p style="font-size: 1.8rem; font-weight: 900; color: #22c55e; letter-spacing: 2px;">
+                                (74) 99962-0423
+                            </p>
+                        </div>
+                        <p style="font-size: 1.05rem; color: #ddd;">
+                            Após o pagamento, envie o comprovante pelo botão abaixo para ativar seu plano premium instantaneamente!
+                        </p>
+                    </div>
+
+                    <button onclick="enviarComprovantePix()" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); font-size: 1.2rem; padding: 1.5rem;">
+                        <i class="fab fa-whatsapp"></i> Enviar Comprovante via WhatsApp
+                    </button>
                 </div>
             </div>
         </section>
@@ -1290,9 +1402,15 @@
     <!-- Footer -->
     <footer>
         <p><i class="fas fa-copyright"></i> COPYRIGHT RIQUELME DESIGNER</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            <i class="fas fa-download"></i> Baixe o App: 
+            <a href="https://riquelme-regedits.netlify.app" target="_blank" style="color: var(--primary-red); text-decoration: none; font-weight: 700;">
+                riquelme-regedits.netlify.app
+            </a>
+        </p>
     </footer>
 
-    <!-- Modal Login -->
+    <!-- Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></span>
@@ -1303,85 +1421,7 @@
     </div>
 
     <script>
-        // Sistema de Compartilhamento Obrigatório
-        let sharesCount = 0;
-        const requiredShares = 5;
-        let canShare = true;
-        const shareLink = "[riquelme-regedits.netlify.app]"; // Substitua pelo link real do download
-        
-        function abrirWhatsAppCompartilhar() {
-            if (!canShare) {
-                alert('⚠️ Aguarde o tempo de espera antes de compartilhar novamente!');
-                return;
-            }
-
-            const mensagem = `🔥 *RIQUELME REGEDITS - SENSI & REGEDITS FF*
-
-✨ Acabei de descobrir o melhor app de Free Fire!
-
-🎯 *Recursos:*
-• Gerador de Sensibilidade Personalizada
-• Regedits Ant Ban
-• Configurações para todos os dispositivos
-• Totalmente GRÁTIS!
-
-📥 *Baixe agora:*
-${sharelink}
-
-🎁 *Entre na comunidade:*
-Discord: https://discord.gg/5YMc9wBJD
-WhatsApp: https://chat.whatsapp.com/HzC1dXVQD5LA7uur7IIuHM
-
----
-_Compartilhe com seus amigos!_`;
-
-            const mensagemEncoded = encodeURIComponent(mensagem);
-            const whatsappURL = `https://wa.me/?text=${mensagemEncoded}`;
-            
-            window.open(whatsappURL, '_blank');
-
-            sharesCount++;
-            document.getElementById('shareProgress').textContent = `${sharesCount}/${requiredShares}`;
-
-            if (sharesCount >= requiredShares) {
-                localStorage.setItem('riquelmeAppUnlocked', 'true');
-                setTimeout(() => {
-                    document.getElementById('shareModal').classList.remove('active');
-                    alert('🎉 Parabéns! App desbloqueado com sucesso!\n\n✅ Agora você tem acesso completo a todos os recursos!');
-                    showAd();
-                }, 1000);
-            } else {
-                canShare = false;
-                document.getElementById('shareBtn').disabled = true;
-                document.getElementById('shareBtn').style.opacity = '0.5';
-                document.getElementById('waitingMessage').style.display = 'block';
-                
-                let countdown = 3;
-                const countdownInterval = setInterval(() => {
-                    countdown--;
-                    document.getElementById('countdown').textContent = countdown;
-                    
-                    if (countdown <= 0) {
-                        clearInterval(countdownInterval);
-                        canShare = true;
-                        document.getElementById('shareBtn').disabled = false;
-                        document.getElementById('shareBtn').style.opacity = '1';
-                        document.getElementById('waitingMessage').style.display = 'none';
-                        document.getElementById('countdown').textContent = '3';
-                    }
-                }, 1000);
-            }
-        }
-
-        // Verificar se já compartilhou (sistema anti-reload)
-        window.addEventListener('load', function() {
-            const hasShared = localStorage.getItem('riquelmeAppUnlocked');
-            if (hasShared === 'true') {
-                document.getElementById('shareModal').classList.remove('active');
-            }
-        });
-
-        // Criar Partículas ULTRA Profissionais
+        // Criar Partículas
         function createParticles() {
             const particlesContainer = document.getElementById('particles-js');
             const particleCount = 150;
@@ -1416,7 +1456,7 @@ _Compartilhe com seus amigos!_`;
         }
         createParticles();
 
-        // Sistema de Anúncios com Redirecionamento
+        // Sistema de Anúncios a cada 60 segundos
         let currentAdSection = 'regedits';
         
         function showAd() {
@@ -1432,7 +1472,9 @@ _Compartilhe com seus amigos!_`;
             }, 8000);
         }
 
-        setInterval(showAd, 30000);
+        // Mostrar anúncio a cada 60 segundos
+        setInterval(showAd, 60000);
+        setTimeout(showAd, 10000); // Primeiro anúncio após 10s
 
         // Toggle Menu
         function toggleMenu() {
@@ -1465,6 +1507,22 @@ _Compartilhe com seus amigos!_`;
 Olá! Preciso de ajuda com:
 
 [Descreva seu problema aqui]
+
+---
+_Enviado via Riquelme Regedits_`;
+            
+            const mensagemEncoded = encodeURIComponent(mensagem);
+            const whatsappURL = `https://wa.me/5574999620423?text=${mensagemEncoded}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Enviar Comprovante PIX
+        function enviarComprovantePix() {
+            const mensagem = `💳 *COMPROVANTE - PLANO PREMIUM*
+
+Olá! Acabei de fazer o pagamento de R$ 2,00 para ativar o Plano Premium do Riquelme Regedits.
+
+📱 Aguardando ativação!
 
 ---
 _Enviado via Riquelme Regedits_`;
@@ -1590,6 +1648,7 @@ _Enviado via Riquelme Regedits_`;
 🖱️ DPI: ${window.currentSensi.dpi}
 
 ✨ Gerado em: Riquelme Regedits
+🔗 Baixe: riquelme-regedits.netlify.app
             `.trim();
 
             navigator.clipboard.writeText(texto).then(() => {
