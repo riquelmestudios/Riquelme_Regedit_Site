@@ -1307,7 +1307,7 @@
         let sharesCount = 0;
         const requiredShares = 5;
         let canShare = true;
-        const shareLink = "riquelme-regedits.netlify.app"; // Substitua pelo link real do download
+        const shareLink = "[riquelme-regedits.netlify.app]"; // Substitua pelo link real do download
         
         function abrirWhatsAppCompartilhar() {
             if (!canShare) {
